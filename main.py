@@ -1,30 +1,37 @@
-import requests
-from bs4 import BeautifulSoup
+# import csv
+# with open("C:/Users/Professional/Downloads/asd.csv", 'r', encoding='utf-8') as file:
+#     reader = csv.reader(file)
+#     for row in reader:
+#         for label in row:
+#             print(label)
+# Подключаем библиотеки
+import httplib2
+import googleapiclient.discovery
+from oauth2client.service_account import ServiceAccountCredentials
 
-def get_html(url):
-    result = requests.get(url)
-    return result.text
+CREDENTIALS_FILE = 'mypthon-401718-ae6b44a07d8c.json'  # Имя файла с закрытым ключом, вы должны подставить свое
 
+# Читаем ключи из файла
+credentials = ServiceAccountCredentials.from_json_keyfile_name(CREDENTIALS_FILE, ['https://www.googleapis.com/auth'
+                                                                                  '/spreadsheets',
+                                                                                  'https://www.googleapis.com/auth'
+                                                                                  '/drive'])
 
-def get_date(html):
-    soup = BeautifulSoup(html, 'lxml')
-    # div = soup.find('div').get('id')
-    # h2 = soup.findAll('div').get('screenshots')
-    # for h in h2:
-    #     print(h)
-    section = soup.findAll('section', {'class': 'plugin-section'})[1]
-    plugins = section.findAll('article')
+httpAuth = credentials.authorize(httplib2.Http()) # Авторизуемся в системе
+service = googleapiclient.discovery.build('sheets', 'v4', http = httpAuth) # Выбираем работу с таблицами и 4 версию API
 
-    for plagin in plugins:
-        h3 = plagin.find('h3')
-        rating = plagin.find('span', {'class' : 'rating-count'})
-        print(h3.text, rating.text)
-
-
-def main():
-    html = get_html("https://ru.wordpress.org/plugins/")
-    data = get_date(html)
-
-
-if __name__ == '__main__':
-    main()
+spreadsheet = service.spreadsheets().create(body = {
+    'properties': {'title': 'Первый тестовый документ', 'locale': 'ru_RU'},
+    'sheets': [{'properties': {'sheetType': 'GRID',
+                               'sheetId': 0,
+                               'title': 'Лист номер один',
+                               'gridProperties': {'rowCount': 100, 'columnCount': 15}}}]
+}).execute()
+spreadsheetId = spreadsheet['spreadsheetId'] # сохраняем идентификатор файла
+driveService = googleapiclient.discovery.build('drive', 'v3', http = httpAuth) # Выбираем работу с Google Drive и 3 версию API
+access = driveService.permissions().create(
+    fileId = spreadsheetId,
+    body = {'type': 'user', 'role': 'writer', 'emailAddress': 'alnurt00@gmail.com'},  # Открываем доступ на редактирование
+    fields = 'id'
+).execute()
+print('https://docs.google.com/spreadsheets/d/' + spreadsheetId)
