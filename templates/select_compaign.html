@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Campaign</title>
+    <!-- Добавлены стили Bootstrap для красивого интерфейса -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Цвет фона */
+        }
+
+        .container {
+            background-color: #ffffff; /* Цвет заднего фона контейнера */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            margin-top: 20px;
+            border: none; /* Убираем границу у карточки */
+        }
+
+        .card-title {
+            color: #007bff; /* Цвет заголовка карточки */
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Цвет кнопки */
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Цвет кнопки при наведении */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">Select Campaign</h1>
+
+                <form id="myForm">
+                    <div class="form-group">
+                        <label for="campaign">Select account:</label>
+                        <select class="form-control" id="campaign" name="campaign" style="width: auto">
+                            {% for campaign in compaigns %}
+                                <option value="{{ campaign.id }}">{{ campaign.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Добавлен скрипт для отправки формы через JavaScript -->
+    <script>
+        function submitForm() {
+            var selectedAccountId = document.getElementById("campaign").value;
+            window.location.href = `/login/callback/select_fields?campaign=${selectedAccountId}`;
+        }
+    </script>
+
+    <!-- Добавлены стили Bootstrap JS и Popper.js для корректной работы Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

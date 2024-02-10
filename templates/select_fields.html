@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Campaign</title>
+    <!-- Добавлены стили Bootstrap для красивого интерфейса -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Цвет фона */
+        }
+
+        .container {
+            background-color: #ffffff; /* Цвет заднего фона контейнера */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            margin-top: 20px;
+            border: none; /* Убираем границу у карточки */
+        }
+
+        .card-title {
+            color: #007bff; /* Цвет заголовка карточки */
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Цвет кнопки */
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Цвет кнопки при наведении */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">Select Fields</h1>
+                <div id="myAccountData" data-my-account="{{ my_account }}"></div>
+                <form id="myForm">
+                  <div class="form-check">
+                    {% for field in fields %}
+                        <input class="form-check-input" type="checkbox" value="{{ field }}" name="field" id="flexCheck{{ field }}">
+                        <label class="form-check-label" for="flexCheck{{ field }}" style="width: auto">
+                            {{ field }}
+                        </label>
+                        <br>
+                    {% endfor %}
+                  </div>
+
+
+                    <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Добавлен скрипт для отправки формы через JavaScript -->
+    <script>
+        function submitForm() {
+            // Получите значение my_account из data-атрибута
+            var myAccountData = document.getElementById("myAccountData");
+            var my_account = myAccountData.dataset.myAccount;
+            var fields = ['adset_name', 'ad_name', 'spend', 'impressions', 'date_start', 'date_stop', 'campaign_name', 'dda_results', 'cpm'];
+            var selectedFields = document.querySelectorAll("input[name='field']:checked");
+              var selectedFieldValues = fields.map(function(field) {
+                    var isChecked = Array.from(selectedFields).some(function(selectedField) {
+                        return selectedField.value === field;
+                    });
+                    return isChecked ? field : null;
+            }).filter(Boolean)
+            // var urlParameters = selectedFieldValues.join(',');
+
+            // Передайте my_account в URL другого метода
+            var urlParameters = JSON.stringify(selectedFieldValues);
+            window.location.href = `/login/compaign?fields=${[urlParameters]}&my_account=${my_account}`;
+        }
+    </script>
+    <!-- Добавлены стили Bootstrap JS и Popper.js для корректной работы Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
