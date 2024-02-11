@@ -161,7 +161,7 @@ class FacebookAuth():
 
     async def login(request: Request):
         client_id = '323958937015510'
-        redirect_uri = "127.0.0.1:8000/login/callback"
+        redirect_uri = "https://facebookservice.onrender.com/login/callback"
         config_id = "1036139867489718"
         authorization_url = (
             "https://www.facebook.com/dialog/oauth?"
@@ -240,7 +240,7 @@ class FacebookAuth():
         token_url = "https://graph.facebook.com/v19.0/oauth/access_token"
         client_id = '323958937015510'
         client_secret = '4017320d9d5dcc49869874e73904b872'
-        redirect_uri = "https://localhost:5000/login/callback"
+        redirect_uri = "https://facebookservice.onrender.com/login/callback"
         token_data = {
             "code": code,
             "client_id": client_id,
@@ -256,7 +256,7 @@ class FacebookAuth():
         token = token_data["access_token"]
 
 
-        redirect_url = f"/login/callback/select_account?token={token}"
+        redirect_url = f"https://facebookservice.onrender.com/login/callback/select_account?token={token}"
         return RedirectResponse(url=redirect_url, status_code=307)
 
     async def select_account(request: Request, token: str):
