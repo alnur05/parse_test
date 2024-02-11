@@ -12,4 +12,4 @@ COPY . .
 
 WORKDIR .
 
-CMD gunicorn -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000 facebook_auth:app
+CMD gunicorn -w 1 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000 facebook_auth:app
