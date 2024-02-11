@@ -161,7 +161,7 @@ class FacebookAuth():
 
     async def login(request: Request):
         client_id = '323958937015510'
-        redirect_uri = "https://localhost:5000/login/callback"
+        redirect_uri = "127.0.0.1:8000/login/callback"
         config_id = "1036139867489718"
         authorization_url = (
             "https://www.facebook.com/dialog/oauth?"
@@ -256,7 +256,7 @@ class FacebookAuth():
         token = token_data["access_token"]
 
 
-        redirect_url = f"https://localhost:5000/login/callback/select_account?token={token}"
+        redirect_url = f"/login/callback/select_account?token={token}"
         return RedirectResponse(url=redirect_url, status_code=307)
 
     async def select_account(request: Request, token: str):
@@ -285,10 +285,10 @@ class FacebookAuth():
                 campaignss.append(compaing)
         return templates.TemplateResponse("select_compaign.html", {"request": request, "compaigns": campaignss})
 
-    def run(self):
-        uvicorn.run(app, host="92.53.96.193", port=23,
-                ssl_keyfile='C:\\Users\Professional\\Downloads\\openssl-3.2.0\\openssl-3.2.0\\demos\\sslecho\\key.pem',
-                ssl_certfile='C:\\Users\Professional\\Downloads\\openssl-3.2.0\\openssl-3.2.0\\demos\\sslecho\\cert.pem')
+    # def run(self):
+    #     uvicorn.run(app, host="localhost", port=5000,
+    #             ssl_keyfile='C:\\Users\Professional\\Downloads\\openssl-3.2.0\\openssl-3.2.0\\demos\\sslecho\\key.pem',
+    #             ssl_certfile='C:\\Users\Professional\\Downloads\\openssl-3.2.0\\openssl-3.2.0\\demos\\sslecho\\cert.pem')
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
