@@ -151,8 +151,8 @@ app.add_middleware(SessionMiddleware, secret_key=secret_key)
 templates = Jinja2Templates(directory="templates")
 class FacebookAuth():
     def __init__(self, client_id, client_secret, redirect_uri, scope):
-        self.client_id = '323958937015510'
-        self.client_secret = '4017320d9d5dcc49869874e73904b872'
+        self.client_id = '935313657940273'
+        self.client_secret = '468a6b379ca39d558b3df1f0769eab17'
         self.redirect_uri = redirect_uri
         self.scope = scope
 
@@ -160,7 +160,7 @@ class FacebookAuth():
         return templates.TemplateResponse("index.html", {"request": request})
 
     async def login(request: Request):
-        client_id = '323958937015510'
+        client_id = '935313657940273'
         redirect_uri = "https://facebookservice.onrender.com/login/callback"
         config_id = "1036139867489718"
         authorization_url = (
@@ -238,8 +238,8 @@ class FacebookAuth():
 
     async def login_callback(code: str = Form(...)):
         token_url = "https://graph.facebook.com/v19.0/oauth/access_token"
-        client_id = '323958937015510'
-        client_secret = '4017320d9d5dcc49869874e73904b872'
+        client_id = '935313657940273'
+        client_secret = '468a6b379ca39d558b3df1f0769eab17'
         redirect_uri = "https://facebookservice.onrender.com/login/callback"
         token_data = {
             "code": code,
