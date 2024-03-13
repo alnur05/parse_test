@@ -162,11 +162,12 @@ class FacebookAuth():
     async def login(request: Request):
         client_id = '935313657940273'
         redirect_uri = "https://facebookservice.onrender.com/login/callback"
-        scope = "email"
+        scope="public_profile,email"
         authorization_url = (
             "https://www.facebook.com/dialog/oauth?"
             f"client_id={client_id}&"
-            f"redirect_uri={redirect_uri}"
+            f"redirect_uri={redirect_uri}&"
+            f"scope={scope}"
         )
         return RedirectResponse(url=authorization_url)
 
