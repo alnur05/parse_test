@@ -166,7 +166,7 @@ class FacebookAuth():
             "https://www.facebook.com/dialog/oauth?"
             f"client_id={client_id}&"
             f"redirect_uri={redirect_uri}&"
-            f"scope=public_profile,email"
+            f"scope=public_profile"
         )
         return RedirectResponse(url=authorization_url)
 
