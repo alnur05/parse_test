@@ -162,14 +162,13 @@ class FacebookAuth():
     async def login(request: Request):
         client_id = '935313657940273'
         redirect_uri = "https://facebookservice.onrender.com/login/callback"
-        config_id = "1036139867489718"
+        scope = "email"
         authorization_url = (
             "https://www.facebook.com/dialog/oauth?"
             f"client_id={client_id}&"
             f"redirect_uri={redirect_uri}&"
-            f"scope=email"
+            f"scope={scope}"
         )
-        print(authorization_url)
         return RedirectResponse(url=authorization_url)
 
     async def select_fields(request: Request, my_company: str = Query(..., alias="campaign")):
