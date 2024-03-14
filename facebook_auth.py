@@ -166,7 +166,7 @@ class FacebookAuth():
             "https://www.facebook.com/dialog/oauth?"
             f"client_id={client_id}&"
             f"redirect_uri={redirect_uri}&"
-            f"scope=public_profile"
+            f"scope=public_profile,email"
         )
         return RedirectResponse(url=authorization_url)
 
@@ -252,7 +252,6 @@ class FacebookAuth():
             token_data = token_response.json()
 
         token = token_data["access_token"]
-
 
         redirect_url = f"https://facebookservice.onrender.com/login/callback/select_account?token={token}"
         return RedirectResponse(url=redirect_url, status_code=307)
