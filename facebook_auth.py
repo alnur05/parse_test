@@ -245,7 +245,7 @@ class FacebookAuth():
             "client_secret": client_secret,
             "redirect_uri": redirect_uri,
         }
-
+        logger.info("BBBBBBBBBBBB")
         async with httpx.AsyncClient() as client:
             token_response = await client.post(token_url, data=token_data)
             token_response.raise_for_status()
@@ -258,7 +258,7 @@ class FacebookAuth():
 
     async def select_account(request: Request, token: str):
         request.session["token"] = token
-
+        logger.info("AAAAAAAAAAAAAAAA")
         FacebookAdsApi.init('323958937015510', '4017320d9d5dcc49869874e73904b872', token)
         me = AdUser(fbid='me')
         my_accounts = list(me.get_ad_accounts(fields=[AdAccount.Field.name]))
