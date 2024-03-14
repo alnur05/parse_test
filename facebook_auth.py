@@ -259,7 +259,7 @@ class FacebookAuth():
     async def select_account(request: Request, token: str):
         request.session["token"] = token
         logger.info("AAAAAAAAAAAAAAAA")
-        FacebookAdsApi.init('323958937015510', '4017320d9d5dcc49869874e73904b872', token)
+        FacebookAdsApi.init('935313657940273', '468a6b379ca39d558b3df1f0769eab17', token)
         me = AdUser(fbid='me')
         my_accounts = list(me.get_ad_accounts(fields=[AdAccount.Field.name]))
         return templates.TemplateResponse("select_account.html", {"request": request, "my_accounts": my_accounts})
