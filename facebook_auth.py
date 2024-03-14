@@ -151,8 +151,8 @@ app.add_middleware(SessionMiddleware, secret_key=secret_key)
 templates = Jinja2Templates(directory="templates")
 class FacebookAuth():
     def __init__(self, client_id, client_secret, redirect_uri, scope):
-        self.client_id = '935313657940273'
-        self.client_secret = '468a6b379ca39d558b3df1f0769eab17'
+        self.client_id = '330488502868663'
+        self.client_secret = '3cf887455b30fe10dc506931c2529115'
         self.redirect_uri = redirect_uri
         self.scope = scope
 
@@ -160,7 +160,7 @@ class FacebookAuth():
         return templates.TemplateResponse("index.html", {"request": request})
 
     async def login(request: Request):
-        client_id = '935313657940273'
+        client_id = '330488502868663'
         redirect_uri = "https://facebookservice.onrender.com/login/callback"
         authorization_url = (
             "https://www.facebook.com/dialog/oauth?"
@@ -236,8 +236,8 @@ class FacebookAuth():
 
     async def login_callback(code: str = Form(...)):
         token_url = "https://graph.facebook.com/v19.0/oauth/access_token"
-        client_id = '935313657940273'
-        client_secret = '468a6b379ca39d558b3df1f0769eab17'
+        client_id = '330488502868663'
+        client_secret = '3cf887455b30fe10dc506931c2529115'
         redirect_uri = "https://facebookservice.onrender.com/login/callback"
         token_data = {
             "code": code,
@@ -259,7 +259,7 @@ class FacebookAuth():
     async def select_account(request: Request, token: str):
         request.session["token"] = token
         logger.info("AAAAAAAAAAAAAAAA")
-        FacebookAdsApi.init('935313657940273', '468a6b379ca39d558b3df1f0769eab17', token)
+        FacebookAdsApi.init('330488502868663', '3cf887455b30fe10dc506931c2529115', token)
         me = AdUser(fbid='me')
         my_accounts = list(me.get_ad_accounts(fields=[AdAccount.Field.name]))
         return templates.TemplateResponse("select_account.html", {"request": request, "my_accounts": my_accounts})
