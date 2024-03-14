@@ -10,4 +10,4 @@ fs = FacebookAuth(my_app_id, my_app_secret, "http://localhost:5000/login/callbac
 bot = TelegramBot()
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
-fs.run()
+# fs.run()
